@@ -5,6 +5,10 @@
   "author": "Trần Minh Nhựt",
   "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhut9dev/create-nhut9dev-app.git"
+  },
   "bin": {
     "create-nhut9dev-app": "bin/create-nhut9dev-app.js"
   },
