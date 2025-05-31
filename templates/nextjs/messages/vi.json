@@ -1,0 +1,10 @@
+{
+  "AppLayout": {
+    "home": "Trang chủ"
+  },
+  "LocaleSwitcher": {
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "label": "Ngôn ngữ"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "create-nhut9dev-app",
+  "version": "1.0.0",
+  "description": "Create a new project from NextJS templates",
+  "author": "Trần Minh Nhựt",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "create-nhut9dev-app": "bin/create-nhut9dev-app.js"
+  },
+  "files": [
+    "bin",
+    "templates"
+  ],
+  "keywords": [
+    "cli",
+    "template",
+    "create",
+    "nextjs",
+    "nhut9dev"
+  ],
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "fs-extra": "^11.3.0",
+    "minimist": "^1.2.8",
+    "prompts": "^2.4.2"
+  }
+}
