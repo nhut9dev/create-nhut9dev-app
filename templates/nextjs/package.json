@@ -24,6 +24,9 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@playwright/test": "^1.51.0",
+    "@swc/core": "^1.11.29",
+    "@swc/helpers": "^0.5.17",
+    "@swc/jest": "^0.2.38",
     "@tailwindcss/postcss": "^4.0.12",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -35,7 +38,6 @@
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.26.1",
     "@typescript-eslint/parser": "^8.26.1",
-    "babel-jest": "^29.7.0",
     "class-variance-authority": "^0.7.1",
     "eslint": "^9.22.0",
     "eslint-config-next": "15.2.1",
