@@ -10,8 +10,7 @@
     "format": "prettier --write .",
     "lint": "next lint",
     "jest": "mkdir -p jest-results && jest",
-    "test": "playwright test",
-    "postinstall": "playwright install chromium"
+    "test": "playwright test"
   },
   "dependencies": {
     "clsx": "^2.1.1",

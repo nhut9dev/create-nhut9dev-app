@@ -25,6 +25,13 @@ npm install
 yarn install
 ```
 
+> **Note:** Playwright browsers (e.g., Chromium) are installed automatically after dependencies via the `postinstall` script.  
+> If you need to install them manually, run:
+>
+> ```sh
+> npx playwright install chromium
+> ```
+
 Run the development server:
 
 ```sh
@@ -54,6 +61,12 @@ Open [http://localhost:3000](http://localhost:3000) to view the app.
   Run `pnpm jest` or `npm run jest` to execute Jest tests in `src/tests/`.
 - **E2E tests:**  
   Run `pnpm test` or `npm run test` to execute Playwright tests in `tests/`.
+
+  > If you see errors about missing browsers, run:
+  >
+  > ```sh
+  > npx playwright install chromium
+  > ```
 
 ## Internationalization
 
