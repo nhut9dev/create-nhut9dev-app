@@ -16,7 +16,7 @@ const config: PlaywrightTestConfig = {
   ],
   use: {
     video: 'on',
-    headless: false, // Mở trình duyệt để xem
+    headless: false, // Open the browser to view
     launchOptions: {
       slowMo: 1000,
     },

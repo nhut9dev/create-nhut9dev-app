@@ -35,7 +35,7 @@ describe('LocaleSwitcher', () => {
     render(<LocaleSwitcher />);
     const select = screen.getByRole('combobox');
 
-    // Giả sử người dùng chuyển từ 'vi' sang 'en'
+    // Assume the user switches from 'vi' to 'en' 
     fireEvent.change(select, { target: { value: 'en' } });
 
     expect(setUserLocale).toHaveBeenCalledWith('en');
