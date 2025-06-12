@@ -5,7 +5,7 @@ module.exports = {
   },
   testMatch: ['**/__tests__/**/*.[tj]s?(x)', '<rootDir>/src/tests/**/*.(spec|test).[tj]s?(x)'],
   moduleNameMapper: {
-    '^~(api|app|assets|components|constants|hooks|i18n|lib|models|store|utils|types)/(.*)$':
+    '^~(api|app|assets|components|constants|hooks|i18n|lib|models|stores|utils|types)/(.*)$':
       '<rootDir>/src/$1/$2',
     '^~/(.*)$': '<rootDir>/src/$1',
     '\\.(css|scss|sass)$': 'identity-obj-proxy',

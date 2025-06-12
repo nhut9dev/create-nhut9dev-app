@@ -28,7 +28,7 @@
       "~types/*": ["types/*"],
       "~hooks/*": ["hooks/*"],
       "~i18n/*": ["i18n/*"],
-      "~store/*": ["store/*"],
+      "~stores/*": ["stores/*"],
       "~utils/*": ["utils/*"],
       "~api/*": ["lib/api/*"],
       "~lib/*": ["lib/*"],

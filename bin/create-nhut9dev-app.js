@@ -11,6 +11,16 @@ const args = minimist(process.argv.slice(2));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const renameDotfiles = async (dir, files) => {
+	for (const file of files) {
+		const from = path.join(dir, file);
+		const to = path.join(dir, `.${file}`);
+		if (fs.existsSync(from)) {
+			await fs.move(from, to);
+		}
+	}
+};
+
 (async () => {
 	// Prompt for project name
 	const response = await prompts({
@@ -71,6 +81,9 @@ const __dirname = path.dirname(__filename);
 			return !ignoreList.includes(basename);
 		}
 	});
+
+	// copy dotfiles
+	await renameDotfiles(targetDir, ['gitignore']);
 
 	// Replace placeholders in package.json
 	const pkgPath = path.join(targetDir, 'package.json');
