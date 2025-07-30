@@ -72,7 +72,12 @@ const __dirname = path.dirname(__filename);
 		}
 	});
 
-	// Dotfiles like .gitignore are already copied by fs.copy
+	// Ensure .gitignore is copied (sometimes fs.copy doesn't handle dotfiles reliably)
+	const gitignoreSrc = path.join(templateDir, '.gitignore');
+	const gitignoreDest = path.join(targetDir, '.gitignore');
+	if (fs.existsSync(gitignoreSrc) && !fs.existsSync(gitignoreDest)) {
+		await fs.copy(gitignoreSrc, gitignoreDest);
+	}
 
 	// Replace placeholders in package.json
 	const pkgPath = path.join(targetDir, 'package.json');
