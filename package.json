@@ -1,6 +1,7 @@
 {
   "name": "create-nhut9dev-app",
-  "version": "1.0.8",
+  "version": "1.0.9",
+
   "description": "Create a new project from NextJS templates",
   "author": "Trần Minh Nhựt",
   "license": "MIT",
@@ -14,7 +15,8 @@
   },
   "files": [
     "bin",
-    "templates"
+    "templates/",
+    "templates/nextjs/.gitignore"
   ],
   "keywords": [
     "cli",
