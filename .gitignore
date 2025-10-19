@@ -49,3 +49,5 @@ next-env.d.ts
 # test
 jest-results
 test-results
+.claude
+.serena
