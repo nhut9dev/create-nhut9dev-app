@@ -21,7 +21,10 @@ const __dirname = path.dirname(__filename);
 			message: 'Choose a project template',
 			choices: [
 				{ title: 'Nextjs', value: 'nextjs' },
-				{ title: 'Clean Architecture Express', value: 'clean-architecture-express' },
+				{
+					title: 'Clean Architecture Express',
+					value: 'clean-architecture-express'
+				},
 				{ title: 'API Gateway', value: 'api-gateway' }
 			],
 			initial: 0
@@ -81,6 +84,13 @@ const __dirname = path.dirname(__filename);
 	const gitignoreDest = path.join(targetDir, '.gitignore');
 	if (fs.existsSync(gitignoreSrc)) {
 		await fs.move(gitignoreSrc, gitignoreDest);
+	}
+
+	// Rename env.example -> .env
+	const envExampleSrc = path.join(targetDir, 'env.example');
+	const envDest = path.join(targetDir, '.env.example');
+	if (fs.existsSync(envExampleSrc)) {
+		await fs.move(envExampleSrc, envDest);
 	}
 
 	// Replace placeholders in package.json
