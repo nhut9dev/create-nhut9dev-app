@@ -5,6 +5,7 @@ A CLI tool to quickly scaffold modern web projects with best practices and pre-c
 ## Available Templates
 
 ### 1. Next.js Template
+
 - Next.js 15 with App Router
 - TypeScript support
 - Internationalization (i18n) with next-intl
@@ -15,12 +16,14 @@ A CLI tool to quickly scaffold modern web projects with best practices and pre-c
 - Pre-configured aliases for imports
 
 ### 2. Clean Architecture Express
+
 - Express.js with Clean Architecture pattern
 - TypeScript support
 - Layered architecture (domain, application, infrastructure)
 - Environment configuration
 
 ### 3. API Gateway
+
 - API Gateway architecture
 - Service orchestration
 - Environment configuration
@@ -34,10 +37,12 @@ create-nhut9dev-app
 ```
 
 You will be prompted to:
+
 1. Choose a project template (Next.js, Clean Architecture Express, or API Gateway)
 2. Enter your project name
 
 The CLI will automatically:
+
 - Copy the selected template
 - Rename `gitignore` to `.gitignore`
 - Rename `env.example` to `.env` (if available)
@@ -51,17 +56,6 @@ The CLI will automatically:
   - [`clean-architecture-express/`](templates/clean-architecture-express/) – Express.js with Clean Architecture
   - [`api-gateway/`](templates/api-gateway/) – API Gateway template
 - [`package.json`](package.json) – CLI configuration
-
-## Template Details
-
-### Next.js Template
-The Next.js template includes:
-- [`src/`](templates/nextjs/src/) – Application source code
-- [`tests/`](templates/nextjs/tests/) – Playwright E2E tests
-- [`messages/`](templates/nextjs/messages/) – Locale message files
-- [`public/`](templates/nextjs/public/) – Static assets
-
-See [`templates/nextjs/README.md`](templates/nextjs/README.md) for more details.
 
 ## License
 
