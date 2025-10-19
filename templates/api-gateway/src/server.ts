@@ -53,7 +53,7 @@ async function bootstrap(): Promise<void> {
     const app = appInstance.getApp();
 
     // 7. Start HTTP server
-    app
+    const server = app
       .listen(PORT, () => {
         console.log('');
         console.log('🎉 API Gateway is running!');
@@ -71,22 +71,34 @@ async function bootstrap(): Promise<void> {
         process.exit(1);
       });
 
-    // Handle graceful shutdown
-    process.on('SIGTERM', async () => {
-      console.log('⚠️  SIGTERM received, shutting down gracefully...');
-      if (redisClient) {
-        await redisClient.disconnect();
-      }
-      process.exit(0);
-    });
+    // Graceful shutdown handler
+    const gracefulShutdown = async (signal: string) => {
+      console.log(`\n⚠️  ${signal} received, shutting down gracefully...`);
 
-    process.on('SIGINT', async () => {
-      console.log('⚠️  SIGINT received, shutting down gracefully...');
-      if (redisClient) {
-        await redisClient.disconnect();
-      }
-      process.exit(0);
-    });
+      // Close server to stop accepting new connections
+      server.close(async () => {
+        console.log('✅ HTTP server closed');
+
+        // Disconnect Redis if connected
+        if (redisClient) {
+          await redisClient.disconnect();
+          console.log('✅ Redis disconnected');
+        }
+
+        console.log('👋 Process terminating...');
+        process.exit(0);
+      });
+
+      // Force close after 10 seconds
+      setTimeout(() => {
+        console.error('⏱️  Forcing shutdown after timeout');
+        process.exit(1);
+      }, 10000);
+    };
+
+    // Handle termination signals
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
   } catch (error) {
     console.error('❌ Failed to bootstrap API Gateway:', error);
     process.exit(1);
