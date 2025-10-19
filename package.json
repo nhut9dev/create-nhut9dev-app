@@ -2,7 +2,7 @@
   "name": "create-nhut9dev-app",
   "version": "1.0.11",
 
-  "description": "Create a new project from NextJS templates",
+  "description": "Create a new project from templates (NextJS, Express Clean Architecture, API Gateway)",
   "author": "Trần Minh Nhựt",
   "license": "MIT",
   "type": "module",
@@ -16,13 +16,20 @@
   "files": [
     "bin",
     "templates/",
-    "templates/nextjs/.gitignore"
+    "templates/nextjs/.gitignore",
+    "templates/clean-architecture-express/gitignore",
+    "templates/api-gateway/gitignore"
   ],
   "keywords": [
     "cli",
     "template",
     "create",
     "nextjs",
+    "express",
+    "clean-architecture",
+    "api-gateway",
+    "microservices",
+    "typescript",
     "nhut9dev"
   ],
   "dependencies": {

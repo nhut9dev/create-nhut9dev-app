@@ -12,6 +12,23 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 (async () => {
+	// Select template first
+	let template = args.template;
+	if (!template) {
+		const templateChoice = await prompts({
+			type: 'select',
+			name: 'selectedTemplate',
+			message: 'Choose a project template',
+			choices: [
+				{ title: 'Nextjs', value: 'nextjs' },
+				{ title: 'Clean Architecture Express', value: 'clean-architecture-express' },
+				{ title: 'API Gateway', value: 'api-gateway' }
+			],
+			initial: 0
+		});
+		template = templateChoice.selectedTemplate || 'nextjs';
+	}
+
 	// Prompt for project name
 	const response = await prompts({
 		type: 'text',
@@ -23,19 +40,6 @@ const __dirname = path.dirname(__filename);
 	const projectName = response.projectName;
 	const cwd = process.cwd();
 	const targetDir = path.join(cwd, projectName);
-
-	// Select template
-	let template = args.template;
-	if (!template) {
-		const templateChoice = await prompts({
-			type: 'select',
-			name: 'selectedTemplate',
-			message: 'Choose a project template',
-			choices: [{ title: 'Nextjs', value: 'nextjs' }],
-			initial: 0
-		});
-		template = templateChoice.selectedTemplate || 'nextjs';
-	}
 
 	const templateDir = path.join(__dirname, `../templates/${template}`);
 
