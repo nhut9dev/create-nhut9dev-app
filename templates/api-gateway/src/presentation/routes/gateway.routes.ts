@@ -1,5 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import type { IncomingMessage, ClientRequest } from 'http';
+import type { Socket } from 'net';
 
 import { JwtValidator } from '~infra/auth';
 import { ServiceRegistry } from '~infra/services';
@@ -31,22 +33,27 @@ export function createGatewayRoutes(config: GatewayRoutesConfig): Router {
       pathRewrite: {
         '^/api/users': '/api/users', // Keep the same path or rewrite as needed
       },
-      onProxyReq: (proxyReq, req: Request) => {
-        // Forward user info to the service
-        if (req.user) {
-          proxyReq.setHeader('X-User-Id', req.user.userId);
-          proxyReq.setHeader('X-User-Email', req.user.email);
-          if (req.user.role) {
-            proxyReq.setHeader('X-User-Role', req.user.role);
+      on: {
+        proxyReq: (proxyReq: ClientRequest, req: IncomingMessage) => {
+          // Forward user info to the service
+          const request = req as Request;
+          if (request.user) {
+            proxyReq.setHeader('X-User-Id', request.user.userId);
+            proxyReq.setHeader('X-User-Email', request.user.email);
+            if (request.user.role) {
+              proxyReq.setHeader('X-User-Role', request.user.role);
+            }
           }
-        }
-      },
-      onError: (err, req, res) => {
-        console.error('Proxy error:', err);
-        (res as Response).status(502).json({
-          success: false,
-          message: 'Bad Gateway - User service unavailable',
-        });
+        },
+        error: (err: Error, req: IncomingMessage, res: Socket | Response) => {
+          console.error('Proxy error:', err);
+          if ('status' in res && typeof res.status === 'function') {
+            res.status(502).json({
+              success: false,
+              message: 'Bad Gateway - User service unavailable',
+            });
+          }
+        },
       },
     }),
   );
@@ -61,17 +68,22 @@ export function createGatewayRoutes(config: GatewayRoutesConfig): Router {
       pathRewrite: {
         '^/api/products': '/api/products',
       },
-      onProxyReq: (proxyReq, req: Request) => {
-        if (req.user) {
-          proxyReq.setHeader('X-User-Id', req.user.userId);
-        }
-      },
-      onError: (err, req, res) => {
-        console.error('Proxy error:', err);
-        (res as Response).status(502).json({
-          success: false,
-          message: 'Bad Gateway - Product service unavailable',
-        });
+      on: {
+        proxyReq: (proxyReq: ClientRequest, req: IncomingMessage) => {
+          const request = req as Request;
+          if (request.user) {
+            proxyReq.setHeader('X-User-Id', request.user.userId);
+          }
+        },
+        error: (err: Error, req: IncomingMessage, res: Socket | Response) => {
+          console.error('Proxy error:', err);
+          if ('status' in res && typeof res.status === 'function') {
+            res.status(502).json({
+              success: false,
+              message: 'Bad Gateway - Product service unavailable',
+            });
+          }
+        },
       },
     }),
   );
@@ -86,21 +98,26 @@ export function createGatewayRoutes(config: GatewayRoutesConfig): Router {
       pathRewrite: {
         '^/api/orders': '/api/orders',
       },
-      onProxyReq: (proxyReq, req: Request) => {
-        if (req.user) {
-          proxyReq.setHeader('X-User-Id', req.user.userId);
-          proxyReq.setHeader('X-User-Email', req.user.email);
-          if (req.user.role) {
-            proxyReq.setHeader('X-User-Role', req.user.role);
+      on: {
+        proxyReq: (proxyReq: ClientRequest, req: IncomingMessage) => {
+          const request = req as Request;
+          if (request.user) {
+            proxyReq.setHeader('X-User-Id', request.user.userId);
+            proxyReq.setHeader('X-User-Email', request.user.email);
+            if (request.user.role) {
+              proxyReq.setHeader('X-User-Role', request.user.role);
+            }
           }
-        }
-      },
-      onError: (err, req, res) => {
-        console.error('Proxy error:', err);
-        (res as Response).status(502).json({
-          success: false,
-          message: 'Bad Gateway - Order service unavailable',
-        });
+        },
+        error: (err: Error, req: IncomingMessage, res: Socket | Response) => {
+          console.error('Proxy error:', err);
+          if ('status' in res && typeof res.status === 'function') {
+            res.status(502).json({
+              success: false,
+              message: 'Bad Gateway - Order service unavailable',
+            });
+          }
+        },
       },
     }),
   );

@@ -1,3 +1,3 @@
-export { createAuthMiddleware, createOptionalAuthMiddleware } from './auth.middleware';
-export { createRateLimitMiddleware } from './rateLimit.middleware';
-export { requestLogger, logger } from './logger.middleware';
+export * from './auth.middleware';
+export * from './rateLimit.middleware';
+export * from './logger.middleware';

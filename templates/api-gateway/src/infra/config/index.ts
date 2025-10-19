@@ -1,1 +1,1 @@
-export { loadEnvConfig, EnvConfig } from './env';
+export * from './env';

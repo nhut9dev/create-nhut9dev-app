@@ -1,2 +1,2 @@
-export { ServiceRegistry } from './ServiceRegistry';
-export { HttpClient } from './HttpClient';
+export * from './ServiceRegistry';
+export * from './HttpClient';

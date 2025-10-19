@@ -1,1 +1,1 @@
-export { createGatewayRoutes } from './gateway.routes';
+export * from './gateway.routes';

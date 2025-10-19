@@ -1,1 +1,1 @@
-export { JwtValidator, JwtPayload } from './JwtValidator';
+export * from './JwtValidator';
