@@ -1,6 +1,6 @@
 {
   "name": "create-nhut9dev-app",
-  "version": "1.1.1",
+  "version": "1.1.2",
 
   "description": "Create a new project from templates (NextJS, Express Clean Architecture, API Gateway)",
   "author": "Trần Minh Nhựt",
