@@ -1,0 +1,94 @@
+# Production Docker Compose Configuration
+# Usage: docker compose up
+# For development: docker compose -f docker-compose.dev.yml up
+
+services:
+  # API Gateway Service (Production)
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: ${PROJECT_NAME:-api-gateway}
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - PORT=${PORT:-8080}
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      # Microservices URLs
+      - USER_SERVICE_URL=${USER_SERVICE_URL:-http://user-service:3001}
+      - PRODUCT_SERVICE_URL=${PRODUCT_SERVICE_URL:-http://product-service:3002}
+      - ORDER_SERVICE_URL=${ORDER_SERVICE_URL:-http://order-service:3003}
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - gateway-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:${PORT:-8080}/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Redis Service (for caching and rate limiting)
+  redis:
+    image: redis:7-alpine
+    container_name: ${PROJECT_NAME:-api-gateway}-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    command: >
+      redis-server
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --appendonly yes
+      ${REDIS_PASSWORD:+--requirepass $REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    networks:
+      - gateway-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # Optional: Mock microservices for testing
+  # user-service:
+  #   image: mockserver/mockserver:latest
+  #   container_name: user-service
+  #   ports:
+  #     - "3001:1080"
+  #   networks:
+  #     - gateway-network
+  #
+  # product-service:
+  #   image: mockserver/mockserver:latest
+  #   container_name: product-service
+  #   ports:
+  #     - "3002:1080"
+  #   networks:
+  #     - gateway-network
+  #
+  # order-service:
+  #   image: mockserver/mockserver:latest
+  #   container_name: order-service
+  #   ports:
+  #     - "3003:1080"
+  #   networks:
+  #     - gateway-network
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  gateway-network:
+    driver: bridge

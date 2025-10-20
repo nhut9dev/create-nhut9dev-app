@@ -86,13 +86,6 @@ const __dirname = path.dirname(__filename);
 		await fs.move(gitignoreSrc, gitignoreDest);
 	}
 
-	// Rename env.example -> .env
-	const envExampleSrc = path.join(targetDir, 'env.example');
-	const envDest = path.join(targetDir, '.env.example');
-	if (fs.existsSync(envExampleSrc)) {
-		await fs.move(envExampleSrc, envDest);
-	}
-
 	// Replace placeholders in package.json
 	const pkgPath = path.join(targetDir, 'package.json');
 	if (fs.existsSync(pkgPath)) {

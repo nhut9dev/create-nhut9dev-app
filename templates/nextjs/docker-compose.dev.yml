@@ -1,0 +1,45 @@
+# Development Docker Compose Configuration
+# Usage: docker compose -f docker-compose.dev.yml up
+
+services:
+  # Next.js Development Service
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deps
+    container_name: ${PROJECT_NAME:-nextjs-app}-dev
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      # Add your environment variables here
+      # - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      # - DATABASE_URL=${DATABASE_URL}
+    volumes:
+      # Mount source code for hot reload
+      - ./src:/app/src:delegated
+      - ./public:/app/public:delegated
+      - ./next.config.ts:/app/next.config.ts:ro
+      - ./next.config.mjs:/app/next.config.mjs:ro
+      - ./tsconfig.json:/app/tsconfig.json:ro
+      - ./tailwind.config.ts:/app/tailwind.config.ts:ro
+      - ./postcss.config.mjs:/app/postcss.config.mjs:ro
+      - ./.env:/app/.env:ro
+      # Prevent node_modules and .next from being overwritten
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    networks:
+      - nextjs-network
+    # Optional: For debugging
+    # ports:
+    #   - "9229:9229"
+    # command: npm run dev -- --inspect=0.0.0.0:9229
+
+networks:
+  nextjs-network:
+    driver: bridge

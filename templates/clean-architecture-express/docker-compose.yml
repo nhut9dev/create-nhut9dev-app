@@ -1,0 +1,133 @@
+# Production Docker Compose Configuration
+# Usage: docker compose up
+# For development: docker compose -f docker-compose.dev.yml up
+
+services:
+  # Application Service (Production)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: ${PROJECT_NAME:-clean-arch-app}
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - PORT=${PORT:-3000}
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+      # Add your database connection string here
+      # - DATABASE_URL=${DATABASE_URL}
+    # Uncomment and configure depends_on if you add a database service
+    # depends_on:
+    #   database:
+    #     condition: service_healthy
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:${PORT:-3000}/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ========================================
+  # Database Services (optional - uncomment to use)
+  # ========================================
+
+  # MongoDB Example
+  # mongodb:
+  #   image: mongo:7-jammy
+  #   container_name: ${PROJECT_NAME:-clean-arch}-mongodb
+  #   restart: unless-stopped
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME:-admin}
+  #     - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD:-password}
+  #     - MONGO_INITDB_DATABASE=${DB_NAME:-myapp}
+  #   volumes:
+  #     - mongodb_data:/data/db
+  #   networks:
+  #     - app-network
+  #   healthcheck:
+  #     test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  # PostgreSQL Example
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: ${PROJECT_NAME:-clean-arch}-postgres
+  #   restart: unless-stopped
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     - POSTGRES_USER=${DB_USERNAME:-postgres}
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD:-password}
+  #     - POSTGRES_DB=${DB_NAME:-myapp}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - app-network
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres}"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  # MySQL Example
+  # mysql:
+  #   image: mysql:8
+  #   container_name: ${PROJECT_NAME:-clean-arch}-mysql
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-rootpassword}
+  #     - MYSQL_DATABASE=${DB_NAME:-myapp}
+  #     - MYSQL_USER=${DB_USERNAME:-user}
+  #     - MYSQL_PASSWORD=${DB_PASSWORD:-password}
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   networks:
+  #     - app-network
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  # Redis Example (for caching)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: ${PROJECT_NAME:-clean-arch}-redis
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - app-network
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+# Volumes (uncomment the section and volumes you need)
+# volumes:
+#   mongodb_data:
+#     driver: local
+#   postgres_data:
+#     driver: local
+#   mysql_data:
+#     driver: local
+#   redis_data:
+#     driver: local
+
+networks:
+  app-network:
+    driver: bridge
