@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "{{projectName}}-mobile",
+    "slug": "{{projectName}}-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mobile",
+    "scheme": "{{projectName}}",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

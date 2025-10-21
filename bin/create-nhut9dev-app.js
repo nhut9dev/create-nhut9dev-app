@@ -98,6 +98,22 @@ const __dirname = path.dirname(__filename);
 		await fs.writeFile(pkgPath, pkg);
 	}
 
+	// Replace placeholders in README.md
+	const readmePath = path.join(targetDir, 'README.md');
+	if (fs.existsSync(readmePath)) {
+		let readme = await fs.readFile(readmePath, 'utf-8');
+		readme = readme.replace(/{{projectName}}/g, projectName);
+		await fs.writeFile(readmePath, readme);
+	}
+
+	// Replace placeholders in app.json (for Expo projects)
+	const appJsonPath = path.join(targetDir, 'apps/mobile/app.json');
+	if (fs.existsSync(appJsonPath)) {
+		let appJson = await fs.readFile(appJsonPath, 'utf-8');
+		appJson = appJson.replace(/{{projectName}}/g, projectName);
+		await fs.writeFile(appJsonPath, appJson);
+	}
+
 	console.log('');
 	console.log(
 		chalk.green(

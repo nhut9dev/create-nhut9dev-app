@@ -1,6 +1,8 @@
 {
-  "name": "turborepo-nextjs-expo",
+  "name": "{{projectName}}",
+  "version": "0.1.0",
   "private": true,
+  "description": "Monorepo with Next.js web app and Expo mobile app powered by Turborepo",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
