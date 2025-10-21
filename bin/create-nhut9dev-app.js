@@ -25,7 +25,11 @@ const __dirname = path.dirname(__filename);
 					title: 'Clean Architecture Express',
 					value: 'clean-architecture-express'
 				},
-				{ title: 'API Gateway', value: 'api-gateway' }
+				{ title: 'API Gateway', value: 'api-gateway' },
+				{
+					title: 'Turbo Nextjs + Expo',
+					value: 'turbo-nextjs-expo'
+				}
 			],
 			initial: 0
 		});

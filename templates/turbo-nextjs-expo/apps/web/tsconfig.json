@@ -1,0 +1,35 @@
+{
+  "extends": "../../packages/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "incremental": true,
+    "baseUrl": "src",
+    "paths": {
+      "~ui/*": ["components/ui/*"],
+      "~components/*": ["components/*"],
+      "~constants/*": ["constants/*"],
+      "~models/*": ["models/*"],
+      "~assets/*": ["assets/*"],
+      "~types/*": ["types/*"],
+      "~hooks/*": ["hooks/*"],
+      "~i18n/*": ["i18n/*"],
+      "~stores/*": ["stores/*"],
+      "~utils/*": ["utils/*"],
+      "~api/*": ["lib/api/*"],
+      "~lib/*": ["lib/*"],
+      "~app/*": ["app/*"],
+      "~/*": ["./*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types",
+    "tests"
+  ],
+  "exclude": ["node_modules"]
+}

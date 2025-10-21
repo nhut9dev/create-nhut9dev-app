@@ -1,0 +1,35 @@
+{
+  "name": "turborepo-nextjs-expo",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "dev:web": "turbo run dev --filter=web",
+    "dev:mobile": "turbo run dev --filter=mobile",
+    "android": "turbo run android --filter=mobile",
+    "ios": "turbo run ios --filter=mobile",
+    "mobile:web": "turbo run web --filter=mobile",
+    "test": "turbo run test",
+    "clean": "turbo clean && rm -rf node_modules",
+    "bun:dev": "bun --bun turbo run dev",
+    "bun:build": "bun --bun turbo run build",
+    "bun:dev:web": "bun --bun turbo run dev --filter=web",
+    "bun:dev:mobile": "bun --bun turbo run dev --filter=mobile"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.8",
+    "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@10.9.3",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
