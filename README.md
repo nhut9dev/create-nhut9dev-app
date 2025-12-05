@@ -4,16 +4,24 @@ A CLI tool to quickly scaffold modern web projects with best practices and pre-c
 
 ## Available Templates
 
-### 1. Next.js Template
+### 1. Next.js 16 Clean Architecture
 
-- Next.js 15 with App Router
-- TypeScript support
-- Internationalization (i18n) with next-intl
-- Tailwind CSS and tailwindcss-animate
-- Prettier and ESLint with recommended configs
-- Playwright for E2E tests
-- Jest and Testing Library for unit tests
-- Pre-configured aliases for imports
+- Next.js 16 with App Router + React 19
+- TypeScript 5 with strict mode
+- Clean Architecture + Domain-Driven Design (DDD)
+- State Management:
+  - Zustand (Client state)
+  - React Query (Server state with caching)
+- Tailwind CSS 4
+- Testing:
+  - Jest + React Testing Library (Unit/Integration)
+  - Playwright (E2E tests)
+- Code Quality:
+  - ESLint + Prettier
+  - Husky + lint-staged (Git hooks)
+- Turbopack build tool
+- HTTP client with interceptors
+- Global error handling system
 
 ### 2. Clean Architecture Express
 
@@ -31,7 +39,8 @@ A CLI tool to quickly scaffold modern web projects with best practices and pre-c
 ### 4. Turbo Next.js + Expo
 
 - Monorepo powered by Turborepo
-- Next.js 15 web application with:
+- Next.js 16 web application with:
+  - React 19
   - TypeScript and Tailwind CSS
   - Internationalization (i18n) with next-intl
   - Jest and Playwright for testing
@@ -56,7 +65,7 @@ create-nhut9dev-app
 
 You will be prompted to:
 
-1. Choose a project template (Next.js, Clean Architecture Express, API Gateway, or Turbo Next.js + Expo)
+1. Choose a project template (Next.js 16 Clean Architecture, Clean Architecture Express, API Gateway, or Turbo Next.js + Expo)
 2. Enter your project name
 
 The CLI will automatically:
@@ -95,10 +104,10 @@ npm run ios              # Start iOS app
 
 - [`bin/`](bin/) – CLI entry point
 - [`templates/`](templates/) – Project templates
-  - [`nextjs/`](templates/nextjs/) – Next.js template with i18n, Tailwind, Playwright, Jest
+  - [`nextjs16-clean-architecture/`](templates/nextjs16-clean-architecture/) – Next.js 16 with Clean Architecture, DDD, React Query, Zustand
   - [`clean-architecture-express/`](templates/clean-architecture-express/) – Express.js with Clean Architecture
   - [`api-gateway/`](templates/api-gateway/) – API Gateway template
-  - [`turbo-nextjs-expo/`](templates/turbo-nextjs-expo/) – Turborepo monorepo with Next.js and Expo
+  - [`turbo-nextjs-expo/`](templates/turbo-nextjs-expo/) – Turborepo monorepo with Next.js 16 and Expo
 - [`package.json`](package.json) – CLI configuration
 
 ## License
