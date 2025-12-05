@@ -371,19 +371,6 @@ Output in `.next/` directory.
 npm run start
 ```
 
-### Deploy
-
-Deploy to Vercel, AWS, or any Node.js hosting:
-
-```bash
-# Vercel
-vercel deploy
-
-# Docker
-docker build -t {{projectName}} .
-docker run -p 3000:3000 {{projectName}}
-```
-
 ## Contributing
 
 1. Follow Clean Architecture principles
