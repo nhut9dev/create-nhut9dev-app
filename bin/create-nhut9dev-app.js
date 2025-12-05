@@ -20,7 +20,10 @@ const __dirname = path.dirname(__filename);
 			name: 'selectedTemplate',
 			message: 'Choose a project template',
 			choices: [
-				{ title: 'Nextjs', value: 'nextjs' },
+				{
+					title: 'Next.js 16 Clean Architecture',
+					value: 'nextjs16-clean-architecture'
+				},
 				{
 					title: 'Clean Architecture Express',
 					value: 'clean-architecture-express'
@@ -104,6 +107,14 @@ const __dirname = path.dirname(__filename);
 		let readme = await fs.readFile(readmePath, 'utf-8');
 		readme = readme.replace(/{{projectName}}/g, projectName);
 		await fs.writeFile(readmePath, readme);
+	}
+
+	// Replace placeholders in .env.example
+	const envExamplePath = path.join(targetDir, '.env.example');
+	if (fs.existsSync(envExamplePath)) {
+		let envExample = await fs.readFile(envExamplePath, 'utf-8');
+		envExample = envExample.replace(/{{projectName}}/g, projectName);
+		await fs.writeFile(envExamplePath, envExample);
 	}
 
 	// Replace placeholders in app.json (for Expo projects)

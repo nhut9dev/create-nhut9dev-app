@@ -1,8 +1,8 @@
 {
   "name": "create-nhut9dev-app",
-  "version": "1.1.7",
+  "version": "1.2.0",
 
-  "description": "Create a new project from templates (NextJS, Express Clean Architecture, API Gateway, Turbo Nextjs + Expo)",
+  "description": "Create a new project from templates (NextJS 16 Clean Architecture, Express Clean Architecture, API Gateway, Turbo Nextjs + Expo)",
   "author": "Trần Minh Nhựt",
   "license": "MIT",
   "type": "module",
@@ -16,7 +16,7 @@
   "files": [
     "bin",
     "templates/",
-    "templates/nextjs/.gitignore",
+    "templates/nextjs16-clean-architecture/gitignore",
     "templates/clean-architecture-express/gitignore",
     "templates/api-gateway/gitignore",
     "templates/turbo-nextjs-expo/gitignore"
@@ -26,8 +26,11 @@
     "template",
     "create",
     "nextjs",
+    "nextjs16",
     "express",
     "clean-architecture",
+    "domain-driven-design",
+    "ddd",
     "api-gateway",
     "microservices",
     "typescript",
@@ -36,6 +39,8 @@
     "expo",
     "react-native",
     "monorepo",
+    "react-query",
+    "zustand",
     "nhut9dev"
   ],
   "dependencies": {
